@@ -1,6 +1,7 @@
 package tpietzsch.n5.rai;
 
 import net.imglib2.img.basictypeaccess.array.ByteArray;
+import org.janelia.saalfeldlab.n5.imglib2.N5Utils;
 import tpietzsch.n5.rai.util.CopyBlock;
 import java.io.IOException;
 import java.util.Map;
@@ -27,7 +28,6 @@ import org.janelia.saalfeldlab.n5.DataType;
 import org.janelia.saalfeldlab.n5.DatasetAttributes;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.RawCompression;
-import org.janelia.saalfeldlab.n5.imglib2.N5Utils;
 
 public class N5RandomAccessibleIntervalReader< T extends NativeType< T > > implements N5Reader
 {
@@ -64,6 +64,15 @@ public class N5RandomAccessibleIntervalReader< T extends NativeType< T > > imple
 		System.err.println( "NOT IMPLEMENTED" );
 		System.err.println( "RaiReader.getAttribute" );
 		System.err.println( "pathName = " + pathName + ", key = " + key + ", clazz = " + clazz );
+		return null;
+	}
+
+	@Override
+	public < T > T getAttribute( final String pathName, final String key, final java.lang.reflect.Type type ) throws IOException
+	{
+		System.err.println( "NOT IMPLEMENTED" );
+		System.err.println( "RaiReader.getAttribute" );
+		System.err.println( "pathName = " + pathName + ", key = " + key + ", type = " + type );
 		return null;
 	}
 

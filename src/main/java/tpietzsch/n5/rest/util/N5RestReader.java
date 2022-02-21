@@ -3,6 +3,7 @@ package tpietzsch.n5.rest.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Map;
 import org.janelia.saalfeldlab.n5.Compression;
 import org.janelia.saalfeldlab.n5.CompressionAdapter;
@@ -16,8 +17,7 @@ public class N5RestReader implements N5Reader
 	private final String baseUrl;
 	private final Gson gson;
 
-	public N5RestReader( final String baseUrl )
-	{
+	public N5RestReader( final String baseUrl ) {
 		this.baseUrl = baseUrl;
 		final GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter( Class.class, new ClassJsonAdapter() );
@@ -37,6 +37,23 @@ public class N5RestReader implements N5Reader
 					.param( "key", key )
 					.param( "clazz", clazz );
 			return gson.fromJson( url.openReader(), clazz );
+		}
+		catch ( IOException e )
+		{
+			throw new RuntimeException( e );
+		}
+	}
+
+	@Override
+	public < T > T getAttribute( final String pathName, final String key, final Type type ) throws IOException
+	{
+		try
+		{
+			Url url = new Url( baseUrl, "getAttribute", gson )
+					.param( "pathName", pathName )
+					.param( "key", key )
+					.param( "type", type );
+			return gson.fromJson( url.openReader(), type );
 		}
 		catch ( IOException e )
 		{
