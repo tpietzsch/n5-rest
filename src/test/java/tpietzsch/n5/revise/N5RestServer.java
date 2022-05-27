@@ -10,20 +10,9 @@ import io.undertow.server.handlers.PathHandler;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.net.ssl.SSLContext;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.type.NativeType;
@@ -34,8 +23,6 @@ import org.janelia.saalfeldlab.n5.DataBlock;
 import org.janelia.saalfeldlab.n5.DataType;
 import org.janelia.saalfeldlab.n5.DatasetAttributes;
 import org.janelia.saalfeldlab.n5.DefaultBlockWriter;
-import org.janelia.saalfeldlab.n5.GzipCompression;
-import org.janelia.saalfeldlab.n5.Lz4Compression;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.RawCompression;
 import tpietzsch.n5.rai.N5RandomAccessibleIntervalReader;
@@ -71,8 +58,6 @@ public class N5RestServer
 	{
 		undertow.start();
 	}
-
-	private AtomicInteger idGenerator = new AtomicInteger();
 
 	public void serve( final String path, final N5Reader n5Reader ) throws IOException
 	{
